@@ -54,11 +54,14 @@ struct RootView: View {
             header
             ZStack {
                 PixelBackground()
-                switch tab {
-                case .budgets: NavigationStack { BudgetsView() }
-                case .home: NavigationStack { HomeView() }
-                case .insights: NavigationStack { InsightsView() }
+                Group {
+                    switch tab {
+                    case .budgets: NavigationStack { BudgetsView() }
+                    case .home: NavigationStack { HomeView() }
+                    case .insights: NavigationStack { InsightsView() }
+                    }
                 }
+                .frame(maxWidth: 680)   // keeps iPad layouts phone-width instead of stretched
             }
             tabBar
         }
@@ -66,7 +69,10 @@ struct RootView: View {
         .tint(Pixel.gold)
         .preferredColorScheme((Theme(rawValue: themeRaw) ?? .neon).isLight ? .light : .dark)
         .ignoresSafeArea(.keyboard, edges: .bottom)
-        .task { RecurringEngine.process(in: context) }
+        .task {
+            DemoData.seedIfRequested(in: context)
+            RecurringEngine.process(in: context)
+        }
         .task(id: widgetKey) {
             SnapshotWriter.write(budgets: budgets, expenses: expenses, income: income, theme: themeRaw, mascot: mascotRaw, currency: currencyRaw)
         }
