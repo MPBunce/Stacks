@@ -153,7 +153,7 @@ struct RootView: View {
                 Image(systemName: t.icon).font(.system(size: 17, weight: .heavy))
                 Text(t.title).font(Pixel.font(9))
             }
-            .foregroundStyle(selected ? Pixel.onFrame : Pixel.onFrame.opacity(0.55))
+            .foregroundStyle(selected ? Pixel.onFrame : Pixel.onFrame.opacity(0.78))
             .frame(maxWidth: .infinity)
             .padding(.vertical, 6)
             .overlay(alignment: .top) {

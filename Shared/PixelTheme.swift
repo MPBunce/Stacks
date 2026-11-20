@@ -67,9 +67,9 @@ enum Theme: String, CaseIterable, Identifiable {
             Palette(bg: hex(0xffe1ef), bgDark: hex(0xffd0e6), bgLight: hex(0xffeef6),
                     frame: hex(0xffb3d6), frameDark: hex(0xff7ab8), frameLight: hex(0xffd0e6),
                     panel: hex(0xfff8fc), panelDark: hex(0xf6dcec), field: .white,
-                    ink: hex(0x5a2a64), dim: hex(0x9a6aa6),
-                    accent: hex(0xffd86b), accentDark: hex(0xffb35c), onAccent: hex(0x5a2a64), amber: hex(0xe8790f),
-                    good: hex(0x17a37e), bad: hex(0xe8365f), heading: hex(0x5a2a64), track: hex(0x5a2a64),
+                    ink: hex(0x5a2a64), dim: hex(0x7a4a86),
+                    accent: hex(0xffd86b), accentDark: hex(0xffb35c), onAccent: hex(0x5a2a64), amber: hex(0x9a4d00),
+                    good: hex(0x0b7a5c), bad: hex(0xc41e48), heading: hex(0x5a2a64), track: hex(0x5a2a64),
                     titleShadow: hex(0x6f3bd6), groundTop: hex(0x8be3c8),
                     coin: coinPalette(0xb8527f, 0xffd86b, 0xffffff, 0xffb35c, 0x5a2a64, 0xff8fb0, 0x8be3c8, 0x2fb58f),
                     decor: .checker)
@@ -77,14 +77,14 @@ enum Theme: String, CaseIterable, Identifiable {
             Palette(bg: hex(0x58b6ff), bgDark: hex(0x4aa6f0), bgLight: hex(0xc4e8ff), bgBottom: hex(0xc4e8ff),
                     frame: hex(0x1f5fbf), frameDark: hex(0x123a7a), frameLight: hex(0x4f8fe0),
                     panel: .white, panelDark: hex(0xd9ecff), field: .white,
-                    ink: hex(0x123a7a), dim: hex(0x4f78b5),
-                    accent: hex(0xffd23f), accentDark: hex(0xe0a000), onAccent: hex(0x123a7a), amber: hex(0xd07a00),
-                    good: hex(0x1c8f4e), bad: hex(0xd7263d), heading: hex(0x0b2d66), track: hex(0x123a7a),
+                    ink: hex(0x123a7a), dim: hex(0x3a5f99),
+                    accent: hex(0xffd23f), accentDark: hex(0xe0a000), onAccent: hex(0x123a7a), amber: hex(0x9a5a00),
+                    good: hex(0x15703c), bad: hex(0xc41e34), heading: hex(0x0b2d66), track: hex(0x123a7a),
                     titleShadow: hex(0x1f5fbf), groundTop: .white,
                     coin: coinPalette(0x8a5a00, 0xffd23f, 0xffffff, 0xe0a000, 0x3a2500, 0xff9db8, 0x6fdc6f, 0x2e9e4a),
                     decor: .clouds)
         case .synth:
-            Palette(bg: hex(0x3b0f70), bgDark: hex(0x1b0a3d), bgLight: hex(0x5a1a9a), bgBottom: hex(0xb3267d),
+            Palette(bg: hex(0x3b0f70), bgDark: hex(0x1b0a3d), bgLight: hex(0x5a1a9a), bgBottom: hex(0x6a1660),
                     frame: hex(0x2a1255), frameDark: hex(0xff4fd8), frameLight: hex(0x5a2a9a),
                     panel: hex(0x2a1255), panelDark: hex(0x1b0a3d), field: hex(0x12062b),
                     ink: hex(0xfff0ff), dim: hex(0xc9a6ff),
@@ -97,7 +97,7 @@ enum Theme: String, CaseIterable, Identifiable {
             Palette(bg: hex(0x7fa3c7), bgDark: hex(0x6f93b7), bgLight: hex(0x8fb3d7),
                     frame: hex(0x2f4a6b), frameDark: hex(0x0f1b2d), frameLight: hex(0x4f6f95),
                     panel: hex(0xdcecf7), panelDark: hex(0xa9c6df), field: hex(0xeef6fb),
-                    ink: hex(0x0f1b2d), dim: hex(0x2f4a6b),
+                    ink: hex(0x0f1b2d), dim: hex(0x1f3550),
                     accent: hex(0xdcecf7), accentDark: hex(0x7fa3c7), onAccent: hex(0x0f1b2d), amber: hex(0x0f1b2d),
                     good: hex(0x0f1b2d), bad: hex(0x0f1b2d), heading: hex(0x0f1b2d), track: hex(0x7fa3c7),
                     titleShadow: hex(0x0f1b2d), groundTop: hex(0xdcecf7),
@@ -107,9 +107,9 @@ enum Theme: String, CaseIterable, Identifiable {
             Palette(bg: hex(0x0b3c49), bgDark: hex(0x06252d), bgLight: hex(0x0e6e7e), bgBottom: hex(0x06252d),
                     frame: hex(0x072a33), frameDark: hex(0xff6f59), frameLight: hex(0x0e6e7e),
                     panel: hex(0xe6fbff), panelDark: hex(0xc3eaf1), field: .white,
-                    ink: hex(0x0b3c49), dim: hex(0x3d7a89),
-                    accent: hex(0xff6f59), accentDark: hex(0xc9452f), onAccent: .white, amber: hex(0xc97300),
-                    good: hex(0x0c8f80), bad: hex(0xd7263d), heading: hex(0xe6fbff), track: hex(0x06252d),
+                    ink: hex(0x0b3c49), dim: hex(0x2f6a78),
+                    accent: hex(0xff6f59), accentDark: hex(0xc9452f), onAccent: hex(0x3b0d05), amber: hex(0x9a5800),
+                    good: hex(0x08705f), bad: hex(0xd7263d), heading: hex(0xe6fbff), track: hex(0x06252d),
                     titleShadow: hex(0x06252d), groundTop: hex(0x2ec4b6),
                     coin: coinPalette(0x7a4a00, 0xffd23f, 0xffffff, 0xe0a000, 0x3a1a00, 0xff9db8, 0x2ec4b6, 0x0e8a80),
                     decor: .bubbles)
@@ -117,11 +117,11 @@ enum Theme: String, CaseIterable, Identifiable {
             Palette(bg: Color(red: 0.42, green: 0.68, blue: 0.30), bgDark: Color(red: 0.33, green: 0.57, blue: 0.24), bgLight: Color(red: 0.52, green: 0.77, blue: 0.36),
                     frame: Color(red: 0.62, green: 0.38, blue: 0.17), frameDark: Color(red: 0.36, green: 0.20, blue: 0.09), frameLight: Color(red: 0.80, green: 0.55, blue: 0.27),
                     panel: Color(red: 0.98, green: 0.90, blue: 0.68), panelDark: Color(red: 0.90, green: 0.78, blue: 0.52), field: Color(red: 1.0, green: 0.96, blue: 0.82),
-                    ink: Color(red: 0.33, green: 0.18, blue: 0.07), dim: Color(red: 0.55, green: 0.38, blue: 0.22),
+                    ink: Color(red: 0.33, green: 0.18, blue: 0.07), dim: Color(red: 0.45, green: 0.30, blue: 0.15),
                     accent: Color(red: 1.0, green: 0.80, blue: 0.20), accentDark: Color(red: 0.80, green: 0.52, blue: 0.10),
-                    onAccent: Color(red: 0.33, green: 0.18, blue: 0.07), amber: Color(red: 0.82, green: 0.48, blue: 0.05),
-                    good: Color(red: 0.22, green: 0.62, blue: 0.22), bad: Color(red: 0.80, green: 0.22, blue: 0.20),
-                    heading: Color(red: 1.0, green: 0.96, blue: 0.80), track: Color(red: 0.25, green: 0.13, blue: 0.05),
+                    onAccent: Color(red: 0.33, green: 0.18, blue: 0.07), amber: Color(red: 0.58, green: 0.31, blue: 0.02),
+                    good: Color(red: 0.14, green: 0.45, blue: 0.14), bad: Color(red: 0.68, green: 0.15, blue: 0.13),
+                    heading: Color(red: 0.20, green: 0.10, blue: 0.04), track: Color(red: 0.25, green: 0.13, blue: 0.05),
                     titleShadow: Color(red: 0.36, green: 0.20, blue: 0.09), groundTop: Color(red: 0.52, green: 0.77, blue: 0.36),
                     coin: coinPalette(0x733f0d, 0xffcc33, 0xffffff, 0xcc8419, 0x401a00, 0xff8c80, 0x8cd94d, 0x408c33),
                     decor: .grass)
@@ -170,10 +170,14 @@ enum Pixel {
         return 0.299 * r + 0.587 * g + 0.114 * b
     }
 
-    /// Flat sections sit straight on the background. When the theme's panel ink was designed for a
-    /// panel of opposite brightness (e.g. dark teal ink, pale panel, dark background) keep a tonal fill so text stays readable.
+    /// Flat sections sit straight on the background on dark/near-uniform themes. Where the backdrop is a mid-tone
+    /// (sky blue, grass green, pink) or the panel ink was designed for a pale panel, sections get a soft tonal fill
+    /// (no border) so every text and status colour keeps readable contrast.
     static var flatFill: Color {
-        (luminance(p.bg) < 0.45) == (luminance(p.panel) < 0.45) ? .clear : p.panel
+        switch Theme.current {
+        case .neon, .synth, .ice: .clear
+        case .candy, .sky, .farm, .reef: p.panel.opacity(0.94)
+        }
     }
 
     /// Text/icon color that reads on the frame color (tab bar): white on dark frames, ink on light ones.
