@@ -3,6 +3,7 @@ import SwiftUI
 
 struct BudgetRow: View {
     let budget: Budget
+    @Environment(\.viewMonth) private var month
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
@@ -13,21 +14,21 @@ struct BudgetRow: View {
                 Text(budget.name.uppercased()).font(Pixel.font(15)).foregroundStyle(Pixel.ink)
                 Spacer()
                 VStack(alignment: .trailing, spacing: 2) {
-                    Text(budget.fractionSpent > 1
-                         ? "\((budget.spentThisMonth - budget.limit).money) OVER"
-                         : "\((budget.limit - budget.spentThisMonth).money) LEFT")
+                    Text(budget.fractionSpent(in: month) > 1
+                         ? "\((budget.spent(in: month) - budget.limit).money) OVER"
+                         : "\((budget.limit - budget.spent(in: month)).money) LEFT")
                         .font(Pixel.font(13))
-                        .foregroundStyle(budget.fractionSpent > 1 ? Pixel.red : (budget.fractionSpent > 0.8 ? Pixel.amber : Pixel.green))
-                    Text("\(budget.spentThisMonth.money) of \(budget.limit.money)")
+                        .foregroundStyle(budget.fractionSpent(in: month) > 1 ? Pixel.red : (budget.fractionSpent(in: month) > 0.8 ? Pixel.amber : Pixel.green))
+                    Text("\(budget.spent(in: month).money) of \(budget.limit.money)")
                         .font(Pixel.font(9, weight: .bold))
                         .foregroundStyle(Pixel.dim)
                 }
                 .minimumScaleFactor(0.7)
                 .lineLimit(1)
             }
-            PixelBar(progress: budget.fractionSpent)
+            PixelBar(progress: budget.fractionSpent(in: month))
         }
-        .pixelPanel(border: budget.fractionSpent > 1 ? Pixel.red : budget.category.color)
+        .pixelPanel(border: budget.fractionSpent(in: month) > 1 ? Pixel.red : budget.category.color)
     }
 }
 
@@ -40,7 +41,8 @@ struct BudgetsView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 18) {
-                                IncomeCard()
+                MonthSwitcher()
+                IncomeCard()
                 Button("+ NEW BUDGET") { showNew = true }
                     .buttonStyle(PixelButtonStyle())
 
@@ -225,6 +227,7 @@ struct CategoryChips: View {
 
 struct BudgetDetailView: View {
     let budget: Budget
+    @Environment(\.viewMonth) private var month
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @State private var confirmDelete = false
@@ -233,7 +236,7 @@ struct BudgetDetailView: View {
     private var subs: [Subcategory] { allSubs.filter { $0.budget == budget } }
 
     private var expenses: [Expense] {
-        budget.expenses.sorted { $0.date > $1.date }
+        budget.expenses.filter { $0.date.isInMonth(of: month) }.sorted { $0.date > $1.date }
     }
 
     var body: some View {
@@ -276,25 +279,25 @@ struct BudgetDetailView: View {
                         HStack {
                             Text(sub.name.uppercased()).font(Pixel.font(14)).foregroundStyle(Pixel.ink)
                             Spacer()
-                            Text(sub.limit > 0 ? "\(sub.spentThisMonth.money) / \(sub.limit.money)" : sub.spentThisMonth.money)
+                            Text(sub.limit > 0 ? "\(sub.spent(in: month).money) / \(sub.limit.money)" : sub.spent(in: month).money)
                                 .font(Pixel.font(11, weight: .bold))
-                                .foregroundStyle(sub.limit > 0 && sub.spentThisMonth > sub.limit ? Pixel.red : Pixel.dim)
+                                .foregroundStyle(sub.limit > 0 && sub.spent(in: month) > sub.limit ? Pixel.red : Pixel.dim)
                             Button { context.delete(sub) } label: {
                                 Image(systemName: "xmark").font(.system(size: 12, weight: .black)).foregroundStyle(Pixel.dim).padding(6)
                             }
                             .accessibilityLabel("Delete category")
                         }
-                        if sub.limit > 0 { PixelBar(progress: sub.spentThisMonth / sub.limit) }
+                        if sub.limit > 0 { PixelBar(progress: sub.spent(in: month) / sub.limit) }
                     }
                     .pixelPanel(border: budget.category.color)
                 }
 
                 HStack {
-                    Text("HISTORY").font(Pixel.font(13)).foregroundStyle(Pixel.heading)
+                    Text("HISTORY · " + month.formatted(.dateTime.month(.abbreviated)).uppercased()).font(Pixel.font(13)).foregroundStyle(Pixel.heading)
                     Spacer()
                 }
                 if expenses.isEmpty {
-                    Text("No spending yet. Nice.")
+                    Text("No spending this month. Nice.")
                         .font(Pixel.font(13, weight: .semibold))
                         .foregroundStyle(Pixel.heading)
                 }

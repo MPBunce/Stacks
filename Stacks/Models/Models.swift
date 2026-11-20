@@ -59,14 +59,13 @@ final class Budget {
 
     var category: BudgetCategory { BudgetCategory(rawValue: categoryRaw) ?? .expenses }
 
-    var spentThisMonth: Double {
-        let cal = Calendar.current
-        return expenses
-            .filter { cal.isDate($0.date, equalTo: .now, toGranularity: .month) }
-            .reduce(0) { $0 + $1.amount }
+    func spent(in month: Date) -> Double {
+        expenses.filter { $0.date.isInMonth(of: month) }.reduce(0) { $0 + $1.amount }
     }
 
-    var fractionSpent: Double { limit > 0 ? spentThisMonth / limit : 0 }
+    var spentThisMonth: Double { spent(in: .now) }
+
+    func fractionSpent(in month: Date) -> Double { limit > 0 ? spent(in: month) / limit : 0 }
 }
 
 @Model
@@ -109,11 +108,8 @@ final class Subcategory {
         self.budget = budget
     }
 
-    var spentThisMonth: Double {
-        let cal = Calendar.current
-        return expenses
-            .filter { cal.isDate($0.date, equalTo: .now, toGranularity: .month) }
-            .reduce(0) { $0 + $1.amount }
+    func spent(in month: Date) -> Double {
+        expenses.filter { $0.date.isInMonth(of: month) }.reduce(0) { $0 + $1.amount }
     }
 
     static func suggestions(for category: BudgetCategory) -> [String] {

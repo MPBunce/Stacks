@@ -26,6 +26,15 @@ enum DemoData {
             ("Coffee", 18.50, 1, .fun, ""),
             ("Emergency fund", 150, 4, .savings, ""),
         ]
+        // Earlier months, so the month switcher and trend chart have something to show.
+        let older: [(String, Double, Int, BudgetCategory)] = [
+            ("Rent", 980, 35, .expenses), ("Groceries", 410, 40, .expenses), ("Concert", 120, 45, .fun), ("Savings", 300, 38, .savings),
+            ("Rent", 980, 66, .expenses), ("Groceries", 380, 70, .expenses), ("Dinner out", 95, 62, .fun),
+            ("Rent", 980, 97, .expenses), ("Groceries", 420, 100, .expenses), ("Games", 70, 95, .fun),
+        ]
+        for (name, amount, ago, cat) in older {
+            context.insert(Expense(title: name, amount: amount, date: day(ago), budget: b(cat)))
+        }
         for (name, amount, ago, cat, note) in items {
             context.insert(Expense(title: name, amount: amount, date: day(ago), budget: b(cat), note: note))
         }

@@ -9,15 +9,18 @@ struct HomeView: View {
     @Query(sort: \Expense.date, order: .reverse) private var allExpenses: [Expense]
     @State private var dropTrigger = 0
     @State private var squash = false
+    @Environment(\.viewMonth) private var month
 
     private var totalLimit: Double { budgets.reduce(0) { $0 + $1.limit } }
-    private var totalSpent: Double { budgets.reduce(0) { $0 + $1.spentThisMonth } }
+    private var totalSpent: Double { budgets.reduce(0) { $0 + $1.spent(in: month) } }
     /// What the tower is measured against: monthly income if set, otherwise the sum of budget limits.
     private var base: Double { income > 0 ? income : totalLimit }
     private var remaining: Double { base - totalSpent }
     private var fraction: Double { base > 0 ? totalSpent / base : 0 }
     private var overBudget: Bool { base > 0 && totalSpent > base }
     private var coins: Int { fraction >= 1 ? 0 : max(1, Int(ceil((1 - fraction) * 7))) }
+
+    private var isCurrentMonth: Bool { ViewMonth.isCurrent(month) }
 
     private var daysLeft: Int {
         let cal = Calendar.current
@@ -41,6 +44,7 @@ struct HomeView: View {
                 if budgets.isEmpty {
                     emptyState
                 } else {
+                    MonthSwitcher()
                     towerCard
                     recentPanel
                     VStack(alignment: .leading, spacing: 12) {
@@ -70,11 +74,11 @@ struct HomeView: View {
     }
 
     private var recentPanel: some View {
-        let recent = Array(allExpenses.prefix(3))
+        let recent = Array(allExpenses.filter { $0.date.isInMonth(of: month) }.prefix(3))
         return VStack(alignment: .leading, spacing: 10) {
             Text("RECENT").font(Pixel.font(12)).foregroundStyle(Pixel.dim)
             if recent.isEmpty {
-                Text("No spending yet. Tap + to log a coin.")
+                Text(isCurrentMonth ? "No spending yet. Tap + to log a coin." : "No spending logged this month.")
                     .font(Pixel.font(12, weight: .semibold))
                     .foregroundStyle(Pixel.dim)
             } else {
@@ -116,7 +120,9 @@ struct HomeView: View {
                     .minimumScaleFactor(0.5).lineLimit(1)
                 Text(overBudget
                      ? "OVER YOUR \(income > 0 ? "INCOME" : "BUDGET")"
-                     : "LEFT · \((max(remaining, 0) / Double(daysLeft)).money) PER DAY")
+                     : (isCurrentMonth
+                        ? "LEFT · \((max(remaining, 0) / Double(daysLeft)).money) PER DAY"
+                        : "LEFT IN \(month.formatted(.dateTime.month(.abbreviated)).uppercased())"))
                     .font(Pixel.font(11))
                     .foregroundStyle(Pixel.dim)
             }

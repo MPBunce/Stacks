@@ -38,6 +38,7 @@ struct RootView: View {
     @AppStorage(Theme.storageKey) private var themeRaw = Theme.neon.rawValue
     @AppStorage(Mascot.storageKey) private var mascotRaw = Mascot.coin.rawValue
     @AppStorage(Currency.storageKey) private var currencyRaw = Currency.code
+    @AppStorage(ViewMonth.storageKey) private var viewMonthRaw: Double = 0
     @AppStorage(IncomeStore.key) private var income: Double = 0
     @Query(sort: \Budget.createdAt) private var budgets: [Budget]
     @Query private var expenses: [Expense]
@@ -65,6 +66,7 @@ struct RootView: View {
             }
             tabBar
         }
+        .environment(\.viewMonth, ViewMonth.resolve(viewMonthRaw))
         .id(themeRaw + mascotRaw + currencyRaw)   // rebuild everything when the theme changes
         .tint(Pixel.gold)
         .preferredColorScheme((Theme(rawValue: themeRaw) ?? .neon).isLight ? .light : .dark)

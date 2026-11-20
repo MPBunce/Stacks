@@ -11,6 +11,7 @@ struct AddExpenseView: View {
     @State private var title = ""
     @State private var noteText = ""
     @State private var date = Date()
+    @Environment(\.viewMonth) private var viewMonth
     @State private var repeatFreq: RepeatFrequency?
     @State private var subSelected: Subcategory?
     @Query(sort: \Subcategory.createdAt) private var allSubs: [Subcategory]
@@ -114,7 +115,10 @@ struct AddExpenseView: View {
             .padding(16)
         }
         .scrollDismissesKeyboard(.interactively)
-        .onAppear { if selected == nil { selected = budgets.first } }
+        .onAppear {
+            if selected == nil { selected = budgets.first }
+            date = ViewMonth.defaultDate(in: viewMonth)
+        }
     }
 
     /// Keeps digits and a single decimal point (a typed comma counts as the point).
