@@ -10,6 +10,7 @@ struct AddExpenseView: View {
     @State private var amountText = ""
     @State private var title = ""
     @State private var noteText = ""
+    @State private var date = Date()
     @State private var repeatFreq: RepeatFrequency?
     @State private var subSelected: Subcategory?
     @Query(sort: \Subcategory.createdAt) private var allSubs: [Subcategory]
@@ -72,6 +73,13 @@ struct AddExpenseView: View {
                     Text("NOTE").font(Pixel.font(13)).foregroundStyle(Pixel.heading)
                     PixelField(placeholder: "Optional details", text: $noteText)
 
+                    Text("DATE").font(Pixel.font(13)).foregroundStyle(Pixel.heading)
+                    DatePicker("Date", selection: $date, in: ...Date(), displayedComponents: .date)
+                        .labelsHidden()
+                        .datePickerStyle(.compact)
+                        .tint(Pixel.gold)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
                     Text("REPEATS").font(Pixel.font(13)).foregroundStyle(Pixel.heading)
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
@@ -81,7 +89,7 @@ struct AddExpenseView: View {
                         .padding(.trailing, 4)
                     }
                     if let repeatFreq {
-                        Text("Logged today, then automatically \(repeatFreq.title.lowercased()). Manage it in BUDGETS.")
+                        Text("Logged on the date above, then automatically \(repeatFreq.title.lowercased()). Manage it in BUDGETS.")
                             .font(Pixel.font(12, weight: .semibold))
                             .foregroundStyle(Pixel.heading)
                     }
@@ -91,10 +99,10 @@ struct AddExpenseView: View {
                         let name = title.trimmingCharacters(in: .whitespaces)
                         let note = noteText.trimmingCharacters(in: .whitespaces)
                         if let repeatFreq {
-                            context.insert(RecurringExpense(title: name, amount: amount, frequency: repeatFreq, budget: selected, subcategory: subSelected, note: note))
+                            context.insert(RecurringExpense(title: name, amount: amount, frequency: repeatFreq, startDate: date, budget: selected, subcategory: subSelected, note: note))
                             RecurringEngine.process(in: context)
                         } else {
-                            context.insert(Expense(title: name, amount: amount, budget: selected, subcategory: subSelected, note: note))
+                            context.insert(Expense(title: name, amount: amount, date: date, budget: selected, subcategory: subSelected, note: note))
                         }
                         dismiss()
                     }
