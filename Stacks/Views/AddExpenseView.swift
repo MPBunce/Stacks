@@ -105,6 +105,7 @@ struct AddExpenseView: View {
             }
             .padding(16)
         }
+        .scrollDismissesKeyboard(.interactively)
         .onAppear { if selected == nil { selected = budgets.first } }
     }
 

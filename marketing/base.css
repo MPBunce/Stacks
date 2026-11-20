@@ -1,0 +1,10 @@
+*{margin:0;box-sizing:border-box}
+body{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-weight:900;color:#e8ecff;
+ background:#0b0a1e;
+ background-image:linear-gradient(rgba(77,225,255,.10) 2px,transparent 2px),linear-gradient(90deg,rgba(77,225,255,.10) 2px,transparent 2px);
+ background-size:40px 40px;overflow:hidden;position:relative}
+.title{color:#ffd23f;text-shadow:6px 6px 0 #ff3ea5;letter-spacing:4px}
+.cap{display:flex;gap:6px;align-items:center}
+.cap i{display:block;height:8px;background:#4de1ff}
+.phone{border-radius:56px;border:10px solid #05040f;box-shadow:0 0 0 4px #4de1ff,0 30px 60px rgba(0,0,0,.6);display:block}
+.px{position:absolute;width:12px;height:12px}
