@@ -152,9 +152,21 @@
 				TargetAttributes = {
 					AA0000000000000000000006 = {
 						CreatedOnToolsVersion = 16.0;
+						DevelopmentTeam = 69ML2GA87D;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 						AA0000000000000000000026 = {
 							CreatedOnToolsVersion = 16.0;
+							DevelopmentTeam = 69ML2GA87D;
+							SystemCapabilities = {
+								com.apple.ApplicationGroups.iOS = {
+									enabled = 1;
+								};
+							};
 						};
 				};
 			};
